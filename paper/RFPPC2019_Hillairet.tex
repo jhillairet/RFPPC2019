@@ -1,0 +1,93 @@
+\documentclass{aip-cp}
+
+\usepackage[numbers]{natbib}
+\usepackage{rotating}
+\usepackage{graphicx}
+\usepackage{url}
+
+%\makeatletter
+%\def\@fnsymbol#1{\ensuremath{\ifcase#1\or *\or \dagger\or **\or
+%   \ddagger\or \mathsection\or \mathparagraph\or \|\or \dagger\dagger
+%   \or \ddagger\ddagger \or\mathsection\mathsection
+%   \or \mathparagraph\mathparagraph \or *{*}*\or
+%   \dagger{\dagger}\dagger \or\ddagger{\ddagger}\ddagger\or
+%   \mathsection{\mathsection}\mathsection
+%   \or \mathparagraph{\mathparagraph}\mathparagraph \else\@ctrerr\fi}}
+%\makeatother
+
+% Document starts
+\begin{document}
+
+% Title portion
+\title{RF Network Analysis of the WEST ICRH Antenna with the Open-Source Python 
+	scikit-rf Package}
+
+\author[IRFM]{Julien Hillairet\corref{cor1}}
+
+\affil[IRFM]{CEA, IRFM, F-13108 St-Paul-Lez-Durance, France}
+
+\corresp[cor1]{Corresponding author: julien.hillairet@cea.fr}
+%\authornote[note1]{This is an example of first authornote.}
+%\authornote[note2]{This is an example of second authornote.}
+
+\maketitle
+
+
+\begin{abstract}
+Scikit-rf (\url{www.scikit-rf.org}) is an open-source Python package developed for RF/Microwave engineering. The package provides a modern, object-oriented library for network analysis and calibration which is both flexible and scalable. Besides offering standard microwave network physics and operations, it is also capable of advanced operations such as interpolating between an individual set of networks or deriving network statistical properties. The package also allows direct plotting of rectangular plots, Smith Charts or automated uncertainty bounds. In this paper, the scikit-rf package is used to simulate the WEST ICRH antennas. The antenna is modelled by connecting the various elements that compose it, separately full-wave modelled. Tunable elements, such as the matching capacitors, can be either created from ideal lump components or from interpolating full-wave calculations performed at various capacitance configurations. Finally, a numerical antenna model of a WEST ICRH antenna can be used offline or online by using operating-system-level virtualization services. 
+\end{abstract}
+
+
+\section{INTRODUCTION}
+Modern science is founded on hypothesis testing and statistical significances of any of its derived results. Reproducing experiments, experimental or numerical, is the reason why scientists can gain confidence in their conclusions. However, during the last decades, the number of codes and libraries developed at an individual or a laboratory scale only increased. When these tools are not open-sourced, it leads to an obvious reproducibility problem as one should only rely on authors claims. To conform to the necessity of reproducibility in science, all software sources used in physical and engineering researches should ideally be made open \cite{Ince2012}. The case of RF network manipulation and analysis is no different. 
+
+Scikit-rf (\url{www.scikit-rf.org}) is a Python package developed for RF/Microwave engineering  \cite{Arsenovic2018}. Licensed under the BSD license, it is currently being actively developed by a group of volunteers on Github. The package provides a modern, object-oriented library for network analysis and calibration which is both flexible and scalable. Besides offering standard microwave network operations, such as reading/writing touchstone files (\texttt{.sNp}), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as VNA calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds. As the package is developed in Python, it makes it naturally compatible with the rich and modern scientific python ecosystem of modules\cite{Millman2011}, such as such as \texttt{scikit-learn} for machine learning tasks or \texttt{PlasmaPy} \cite{PlasmaPyCommunity2018} for plasma physics. Using Jupyter notebooks documents\cite{Kluyver2016}, modelling approaches and results can be shared and even directly reproduced using tools such as Binder (\url{https://mybinder.org/} or Google Colab (\url{https://colab.research.google.com/}), by other researchers (or future self) few months or years after work had been initially made.
+
+In this paper, the \texttt{scikit-rf} package is used to simulate the WEST ICRH antennas. The antenna is modelled by connecting the various elements that compose it, separately full-wave modelled, like done with proprietary codes in 
+\cite{Durodie2015, Helou2015, Helou2015a}. Tunable elements, such as the matching capacitors, can be either created from ideal lump components \cite{Helou2016} or from interpolating full-wave calculations performed at various capacitance configurations. 
+
+%The package is also used to deduce the experimental 6-port network of an antenna (2 power ports plus 4 voltage probe ports) from two measurements made with a 4-port VNA. 
+
+
+\section{WEST ICRH Antenna Modelling}
+\subsection{Matching Capacitors}
+
+\subsection{Antenna Circuit}
+
+\subsection{Plasma Coupling Evaluation}
+
+\section{Conclusion}
+
+
+%
+%
+%
+%
+%\section{OTHER SPECIFICATIONS (FIRST LEVEL HEADING)}
+%Figures, tables, and equations must be inserted in the text and may not be grouped at the end of the paper. Important: A miscount of figures, tables, or equations may result from revisions. Please double check the numbering of these elements before you submit your paper to your proceedings editor.
+%
+%\subsection{Figures (Second Level Heading)}
+%If you need to arrange a number of figures, a good tip is to place them in a table, which gives you additional control of the layout. Leave a line space between your figure and any text above it, like this one:
+%
+%% Figure
+%\begin{figure}[h]
+%  %\centerline{\includegraphics[width=150pt]{art/fig_1}}
+%  \caption{To format a figure caption use the \LaTeX template style: Figure Caption. The text ``FIGURE 1,'' which labels the caption, should be bold and in upper case. If figures have more than one part, each part should be labeled (a), (b), etc. Using a table, as in the above example, helps you control the layout.}
+%\end{figure}
+
+
+
+
+
+% Acknowledgement
+\section{ACKNOWLEDGMENTS}
+
+
+% References
+
+\nocite{*}
+\bibliographystyle{aipnum-cp}%
+\bibliography{RFPPC2019_Hillairet}%
+
+
+\end{document}
