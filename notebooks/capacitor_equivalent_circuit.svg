@@ -9,9 +9,9 @@
    xmlns="http://www.w3.org/2000/svg"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
-   width="173.50554mm"
+   width="185.27032mm"
    height="48.290165mm"
-   viewBox="0 0 173.50554 48.290165"
+   viewBox="0 0 185.27033 48.290165"
    version="1.1"
    id="svg7563"
    inkscape:version="0.92.3 (2405546, 2018-03-11)"
@@ -26,15 +26,15 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.4"
-     inkscape:cx="352.51011"
-     inkscape:cy="-38.540183"
+     inkscape:cx="372.87094"
+     inkscape:cy="-38.54018"
      inkscape:document-units="mm"
      inkscape:current-layer="layer1"
      showgrid="false"
      inkscape:window-width="1920"
      inkscape:window-height="1005"
-     inkscape:window-x="3831"
-     inkscape:window-y="111"
+     inkscape:window-x="-9"
+     inkscape:window-y="-9"
      inkscape:window-maximized="1"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -48,7 +48,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -56,7 +56,7 @@
      inkscape:label="Calque 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-15.316472,24.869453)">
+     transform="translate(-9.9293359,24.869453)">
     <path
        inkscape:connector-curvature="0"
        id="path4203"
@@ -372,7 +372,7 @@
            sodipodi:role="line">1</tspan></text>
     </g>
     <g
-       transform="translate(15.591518,-25.891369)"
+       transform="translate(15.591518,-26.458333)"
        id="g12327">
       <text
          id="text12321"
@@ -451,7 +451,7 @@
     </g>
     <g
        id="g12357"
-       transform="translate(109.14506,-25.702381)">
+       transform="translate(109.03167,-26.080357)">
       <text
          xml:space="preserve"
          style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:6.34673882px;line-height:125%;font-family:Arial;-inkscape-font-specification:'Arial, Normal';text-align:start;letter-spacing:0px;word-spacing:0px;writing-mode:lr-tb;text-anchor:start;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.15866846px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
