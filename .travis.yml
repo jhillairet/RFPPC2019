@@ -13,10 +13,11 @@ before_install:
     #- export PATH=$PATH:$PWD
     
 script:
-    - pdflatex -interaction=nonstopmode paper/RFPPC2019_Hillairet.tex
+    - cd paper
+    - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
     - biber master
-    - pdflatex -interaction=nonstopmode paper/RFPPC2019_Hillairet.tex
-    - pdflatex -interaction=nonstopmode paper/RFPPC2019_Hillairet.tex
+    - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
+    - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
 
 deploy:
   provider: releases
