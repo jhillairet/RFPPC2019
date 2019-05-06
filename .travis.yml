@@ -15,7 +15,7 @@ before_install:
 script:
     - cd paper
     - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
-    - biber RFPPC2019_Hillairet
+    - bibtex RFPPC2019_Hillairet
     - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
     - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
 
