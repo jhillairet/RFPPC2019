@@ -3,6 +3,13 @@
 \usepackage[utf8]{inputenc}
 
 \usepackage[numbers]{natbib}
+%\usepackage[
+%backend=biber, 
+%style=authoryear,
+%url=false, 
+%doi=true
+%]{biblatex}
+%\addbibresource{RFPPC2019_Hillairet.bib}
 
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -64,7 +71,7 @@
 	\section{INTRODUCTION}
 	Modern science is founded on hypothesis testing and statistical significances of its derived results. Reproducing experiments, experimental or numerical, is the reason why scientists can gain confidence in their conclusions. However, during the last decades, the number of codes and libraries developed at an individual or a laboratory scale only increased. When these tools are not open-sourced, it leads to an obvious reproducibility problem as one should only rely on authors claims. To conform to the necessity of reproducibility in science, all software sources used in physical and engineering researches should ideally be made open \cite{Ince2012}. The case of RF network manipulation and analysis is no different.
 	
-	\texttt{Scikit-rf}\footnote{www.scikit-rf.org} is a Python package developed for RF/Microwave engineering  \cite{Arsenovic2018}. Licensed under the BSD licence, it is currently being actively developed by a group of volunteers on GitHub. The package provides a modern, object-oriented library for network analysis and calibration which is both flexible and scalable. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp}), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as VNA calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds. As the package is developed in Python, it makes it naturally compatible with the rich and modern scientific Python ecosystem of modules\cite{Millman2011}, such as \texttt{scikit-learn} for machine learning tasks \cite{scikit-learn} or \texttt{PlasmaPy} \cite{PlasmaPyCommunity2018} for plasma physics. Using Jupyter notebooks documents\cite{Kluyver2016}, modelling approaches and results can be shared and even directly reproduced using tools such as Binder\footnote{https://mybinder.org/} or Google Colab\footnote{https://colab.research.google.com/}, by other researchers (or future self) few months or years after work had been made.
+	\texttt{Scikit-rf}\footnote{www.scikit-rf.org} is a Python package produced for RF/Microwave engineering  \cite{Arsenovic2018}. The package is licensed under the BSD licence and is actively developed by volunteers on GitHub. The package provides a modern, object-oriented library for RF network analysis and calibration. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp}), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as VNA calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds. As the package is developed in Python, it makes it naturally compatible with the rich and modern scientific Python ecosystem of modules\cite{Millman2011}, for example  \texttt{scikit-learn} for machine learning tasks \cite{scikit-learn} or \texttt{PlasmaPy} \cite{PlasmaPyCommunity2018} for plasma physics. Using Jupyter notebooks documents\cite{Kluyver2016}, modelling approaches and results can be shared and even directly reproduced using tools such as Binder\footnote{https://mybinder.org/} or Google Colab\footnote{https://colab.research.google.com/}, by other researchers (or future self) few months or years after work had been made.
 	
 	In this paper, some functionalities of the \texttt{scikit-rf} package are presented through the example of modelling the WEST (Tungsten-W Environment in Steady-state Tokamak) Ion Cyclotron Resonance Heating (ICRH) antenna. The antenna circuit is made by connecting the various elements that compose it, separately full-wave modelled or using equivalent lumped models, like done with proprietary codes in \cite{Durodie2015, Helou2015_SIDON} or with commercial software such as ANSYS Designer in \cite{Hillairet2015}. This paper is accompanied by Jupyter notebooks illustrating in more details the code leading to the results presented here[REF Zenodo].
 	
@@ -122,15 +129,15 @@
 	
 	\begin{lstlisting}[language=Python]
 	def eq_capa(C, R, L, R1, C1, L1):  # here we neglect the parallel resistance R_p
-	freq = rf.Frequency(start=5, stop=95, npoints=101, unit='MHz')
-	line = rf.media.DefinedGammaZ0(frequency=freq, z0=50)  # ideal transmission line media
-	pre  = line.resistor(R1) ** line.inductor(L1) ** line.shunt_capacitor(C1)
-	post = line.shunt_capacitor(C1) ** line.resistor(R1) ** line.inductor(L1)
-	capa = line.resistor(R) ** line.inductor(L) ** line.capacitor(C)
-	return pre ** cap ** post  # ** is the scikit-rf network cascading operator
+		freq = rf.Frequency(start=5, stop=95, npoints=101, unit='MHz')
+		line = rf.media.DefinedGammaZ0(frequency=freq, z0=50)  # ideal transmission line media
+		pre  = line.resistor(R1) ** line.inductor(L1) ** line.shunt_capacitor(C1)
+		post = line.shunt_capacitor(C1) ** line.resistor(R1) ** line.inductor(L1)
+		capa = line.resistor(R) ** line.inductor(L) ** line.capacitor(C)
+		return pre ** cap ** post  # ** is the scikit-rf network cascading operator
 	\end{lstlisting}
 	
-	Using the standard optimization toolbox shipped in the \texttt{scipy} package, the model parameters can be fitted for each full-wave network. Once done, full-wave references and lumped model can be compared. The Figure~\ref{fig:fig2}(b) shows the calculated $S_{21}$ parameter which fit nice with the reference full-wave values. For most capacitance configurations, the error is below -40~dB. Taking constant lumped parameters ($R_s, L_s, C_1=C2, R_1=R_2, L_1=L_2$) but $C$, the still matches well the full-wave reference except for the lowest range of capacitance values, in a region where the relationship between the electrodes distance and the capacitance is no more linear. The model can thus be used to determine a realistic relationship between the RF capacitance and the capacitor configuration (driven by motors).
+	Using the standard optimization toolbox shipped in the \texttt{scipy} package, the model parameters can be fitted for each full-wave network. Once done, full-wave references and lumped model can be compared. The Figure~\ref{fig:fig2}(b) shows the calculated $S_{21}$ parameter which fit nice with the reference full-wave values. For most capacitance configurations, the error is below -40~dB. Taking constant lumped parameters ($R_s, L_s, C_1=C_2, R_1=R_2, L_1=L_2$) but $C$, the still matches well the full-wave reference except for the lowest range of capacitance values, in a region where the relationship between the electrodes distance and the capacitance is no more linear. The model can thus be used to determine a realistic relationship between the RF capacitance and the capacitor configuration (driven by motors).
 	
 	\begin{figure*}[t!]
 		\centering
@@ -175,20 +182,20 @@
 		\hfill
 		\begin{minipage}[b]{0.4\textwidth}
 			\begin{lstlisting}[language=Python, basicstyle=\tiny]
-			connections = [
-			[(port1, 0), (window, 0)],
-			[(window, 1), (impedance_transformer, 0)],
-			[(impedance_transformer, 1), (bridge, 0)],
-			[(bridge, 1), (capa_upper, 0)],
-			[(bridge, 2), (capa_lower, 0)],
-			[(capa_upper, 1), (load_upper, 0)],
-			[(capa_lower, 1), (load_lower, 0)],
-			[(load_upper, 1), (ground_upper, 0)],
-			[(load_lower, 1), (ground_lower, 0)]
-			]
-			# create the Circuit object and associated network
-			crt = rf.Circuit(connections) 
-			ntw = crt.network  # here a 1-port.
+connections = [
+	[(port1, 0), (window, 0)],
+	[(window, 1), (impedance_transformer, 0)],
+	[(impedance_transformer, 1), (bridge, 0)],
+	[(bridge, 1), (capa_upper, 0)],
+	[(bridge, 2), (capa_lower, 0)],
+	[(capa_upper, 1), (load_upper, 0)],
+	[(capa_lower, 1), (load_lower, 0)],
+	[(load_upper, 1), (ground_upper, 0)],
+	[(load_lower, 1), (ground_lower, 0)]
+]
+# create the Circuit object and associated network
+crt = rf.Circuit(connections) 
+ntw = crt.network  # here a 1-port.
 			\end{lstlisting}
 			\captionof{figure}{\texttt{scikit-rf Circuit} setup of an half-antenna.}
 			\label{fig:skrf_circuit_halfantenna}
