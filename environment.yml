@@ -4,6 +4,5 @@ channels:
 dependencies:
   - matplotlib
   - scipy
-  - scikit-rf
   - networkx
   - tqdm
