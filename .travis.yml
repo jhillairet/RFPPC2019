@@ -23,11 +23,11 @@ script:
     - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
     - pdflatex -interaction=nonstopmode RFPPC2019_Hillairet.tex
 
-deploy:
-  provider: releases
-  api_key:
-    secure: 
-  file: RFPPPC2019_Hillairet.pdf
-  skip_cleanup: true
-  on:
-    repo: jhillairet/RFPPC2019
+# deploy:
+  # provider: releases
+  # api_key:
+    # secure: 
+  # file: RFPPPC2019_Hillairet.pdf
+  # skip_cleanup: true
+  # on:
+    # repo: jhillairet/RFPPC2019
