@@ -1,0 +1,4 @@
+As proposed by the referee (point 1), some acronyms have been explained in the paper, and neologism avoided and reexpressed. 
+
+Concerning point 2) of referee’s comment, I would like to say I do agree with the referee. Using and publish open source software does not mean that commercial software should not be used, as indeed they can be useful for result cross-checking. 
+However, being commercial product does not imply to be bug free either (I personally learnt it the hard way). The point of the first paragraph is that when a specific code had been developed for scientific purposes, its sources should be made open in order for other researchers to be able to reproduce the results obtained with it. When it is not the case, reviewers and readers are obliged to believe author’s words. Such behaviour is one of the causes of the science reproducibility crisis, which I believe all scientists should be aware of. 
