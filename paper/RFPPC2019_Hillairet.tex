@@ -1,15 +1,31 @@
-\documentclass{aip-cp}
-\usepackage[T1]{fontenc}
-\usepackage[utf8]{inputenc}
+%\documentclass{aip-cp}
+\documentclass[%
+aip,
+% jmp,
+% bmf,
+% sd,
+% rsi,
+cp,  % Conference Proceedings
+amsmath,amssymb,%nobibnotes,
+% preprint,%
+reprint,%
+%author-year,%
+%author-numerical,%
+]{revtex4-2}
 
-\usepackage[numbers]{natbib}
-%\usepackage[
-%backend=biber, 
-%style=authoryear,
-%url=false, 
-%doi=true
-%]{biblatex}
-%\addbibresource{RFPPC2019_Hillairet.bib}
+\usepackage{graphicx}% Include figure files
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage[mathlines]{lineno}% Enable numbering of text and display math
+%\linenumbers\relax % Commence numbering lines
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+%% Loads a Times-like font. You can also load
+%% {newtxtext,newtxtmath}, but not {times}, 
+%% {txfonts} nor {mathtpm} as these packages
+%% are obsolete and have been known to cause problems.
+\usepackage{mathptmx} 
 
 \usepackage{graphicx}
 \usepackage{xcolor}
@@ -52,21 +68,29 @@
 
 \lstset{style=mystyle}
 
+%\usepackage[numbers]{natbib}
+%%\usepackage[
+%%backend=biber, 
+%%style=authoryear,
+%%url=false, 
+%%doi=true
+%%]{biblatex}
+%%\addbibresource{RFPPC2019_Hillairet.bib}
+
 \begin{document}
 	
 	\title{RF Network Analysis of the WEST ICRH Antenna with the Open-Source Python scikit-rf Package}
 	
-	\author[IRFM]{Julien Hillairet\corref{cor1}}
-	\affil[IRFM]{CEA, IRFM, F-13108 St-Paul-Lez-Durance, France}
-	\corresp[cor1]{Corresponding author: julien.hillairet@cea.fr}
-	
-	\maketitle
-	
+	\author{Julien Hillairet}
+	\email[Corresponding author: ]{julien.hillairet@cea.fr}
+	\affiliation{CEA, IRFM, F-13108 St-Paul-Lez-Durance, France}
+
 	
 	\begin{abstract}
 		\texttt{Scikit-rf} is an open-source Python package developed for RF/Microwave engineering. The package provides a modern, object-oriented library for network analysis and calibration which is both flexible and scalable. Besides offering standard microwave network physics and operations, it is also capable of advanced operations such as interpolating between an individual set of networks or deriving network statistical properties. The package also allows direct plotting of rectangular plots, Smith Charts or automated uncertainty bounds. In this paper, the \texttt{scikit-rf} package is used to simulate the WEST ICRH antennas. The antenna is modelled by connecting the various elements that compose it, separately full-wave modelled. Tunable elements, such as the matching capacitors, can be either created from ideal lump components or from interpolating full-wave calculations performed at various capacitance configurations. Finally, a numerical antenna model of a WEST ICRH antenna can be used offline or online by using operating-system-level virtualization services.
 	\end{abstract}
 	
+	\maketitle	
 	
 	\section{INTRODUCTION}
 	Modern science is founded on hypothesis testing and statistical significances of its derived results. Reproducing experiments, experimental or numerical, is the reason why scientists can gain confidence in their conclusions. However, during the last decades, the number of codes and libraries developed at an individual or a laboratory scale only increased. When these tools are not open-sourced, it leads to an obvious reproducibility problem as one should only rely on authors claims. To conform to the necessity of reproducibility in science,  software sources used in physical and engineering researches should ideally be made open when possible \cite{Ince2012}. The case of RF network manipulation and analysis is no different.  
