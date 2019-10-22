@@ -109,14 +109,12 @@ reprint,%
 	\begin{lstlisting}[language=Python]
 	import skrf as rf
 	capas_set = rf.NetworkSet.from_dir('S_Matrices/Antenna/Capacitor')
-	capas_set['20-80 MHz'].plot_s_re(m=1, n=0)  # Indexing starts at 0 in Python
-	\end{lstlisting}
+	capas_set['20-80 MHz'].plot_s_re(m=1, n=0)  # Indexing starts at 0 in Python	\end{lstlisting}
 	
 	Assuming the \texttt{NetworkSet} contains $M$ networks coming from a parameter sweep of $M$ values described in a \texttt{param\_values} array, creating an interpolated network for a new value is achieved with:
 	
 	\begin{lstlisting}[language=Python]
-	ntw = capas_set.interpolate_from_network(param_values, new_value)
-	\end{lstlisting}
+	ntw = capas_set.interpolate_from_network(param_values, new_value)	\end{lstlisting}
 	
 	Figure~\ref{fig:fig1}(b) illustrates the interpolation of $S_{11}$ and $S_{21}$ at a given frequency for intermediate values of the swept parameter, here related to the distance between capacitor electrodes (noted $D_{cylinders}$). Obviously, the interpolation precision increases with the number of networks in the set.
 	
@@ -156,8 +154,7 @@ reprint,%
 		pre  = line.resistor(R1) ** line.inductor(L1) ** line.shunt_capacitor(C1)
 		post = line.shunt_capacitor(C1) ** line.resistor(R1) ** line.inductor(L1)
 		capa = line.resistor(R) ** line.inductor(L) ** line.capacitor(C)
-		return pre ** cap ** post  # ** is the scikit-rf network cascading operator
-	\end{lstlisting}
+		return pre ** cap ** post  # ** is the scikit-rf network cascading operator	\end{lstlisting}
 	
 	Using the standard optimization toolbox shipped in the \texttt{scipy} package, the model parameters can be fitted for each full-wave network. Once done, full-wave references and lumped model can be compared. The Figure~\ref{fig:fig2}(b) shows the calculated $S_{21}$ parameter which fit nice with the reference full-wave values. For most capacitance configurations, the error is below -40~dB. Taking constant lumped parameters ($R_s, L_s, C_1=C_2, R_1=R_2, L_1=L_2$) but $C$, the still matches well the full-wave reference except for the lowest range of capacitance values, in a region where the relationship between the electrodes distance and the capacitance is no more linear. The model can thus be used to determine a realistic relationship between the RF capacitance and the capacitor configuration (driven by motors).
 	
@@ -217,8 +214,7 @@ connections = [
 ]
 # create the Circuit object and associated network
 crt = rf.Circuit(connections) 
-ntw = crt.network  # here a 1-port.
-			\end{lstlisting}
+ntw = crt.network  # here a 1-port.			\end{lstlisting}
 			\captionof{figure}{\texttt{scikit-rf Circuit} setup of an half-antenna.}
 			\label{fig:skrf_circuit_halfantenna}
 		\end{minipage}
