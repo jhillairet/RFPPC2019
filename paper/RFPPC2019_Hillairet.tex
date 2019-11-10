@@ -27,7 +27,6 @@ reprint,%
 %% are obsolete and have been known to cause problems.
 \usepackage{mathptmx} 
 
-\usepackage{graphicx}
 \usepackage{xcolor}
 
 \usepackage{caption}
@@ -68,6 +67,7 @@ reprint,%
 
 \lstset{style=mystyle}
 
+
 %\usepackage[numbers]{natbib}
 %%\usepackage[
 %%backend=biber, 
@@ -95,16 +95,16 @@ reprint,%
 	\section{INTRODUCTION}
 	Modern science is founded on hypothesis testing and statistical significances of its derived results. Reproducing experiments, experimental or numerical, is the reason why scientists can gain confidence in their conclusions. However, during the last decades, the number of codes and libraries developed at an individual or a laboratory scale only increased. When these tools are not open-sourced, it leads to an obvious reproducibility problem as one should only rely on authors claims. To conform to the necessity of reproducibility in science,  software sources used in physical and engineering researches should ideally be made open when possible \cite{Ince2012}. The case of RF network manipulation and analysis is no different.  
 	
-	\texttt{Scikit-rf}\footnote{www.scikit-rf.org} is a Python package produced for RF/Microwave engineering  \cite{Arsenovic2018}. The package is licensed under the Berkeley Software Distribution (BSD) licence and is actively developed by volunteers on GitHub. The package provides a modern, object-oriented library for RF network analysis and calibration. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp}), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as Vector Network Analyzer (VNA) calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds. As the package is developed in Python, it makes it naturally compatible with the rich and modern scientific Python libraries \cite{Millman2011}, for example  \texttt{scikit-learn} for machine learning tasks \cite{scikit-learn} or \texttt{PlasmaPy} \cite{PlasmaPyCommunity2018} for plasma physics. Using Jupyter notebooks documents\cite{Kluyver2016}, modelling approaches and results can be shared and even directly reproduced using tools such as Binder\footnote{https://mybinder.org/}\cite{project_jupyter-proc-scipy-2018} or Google Colab\footnote{https://colab.research.google.com/}, by other researchers (or future self) few months or years after work had been made.
+	\texttt{Scikit-rf}\footnote{www.scikit-rf.org} is a Python package produced for RF/Microwave engineering  \cite{Arsenovic2018}. The package is licensed under the Berkeley Software Distribution (BSD) licence and is actively developed by volunteers on GitHub. The package provides a modern, object-oriented library for RF network analysis and calibration. Besides offering standard microwave network operations, such as reading/writing Touchstone files (\texttt{.sNp}), connecting or de-embedding N-port networks, frequency/port slicing, concatenation or interpolations, it is also capable of advanced operations such as Vector Network Analyzer (VNA) calibrations, time-gating, interpolating between an individual set of networks, deriving network statistical properties and supports Virtual Instrument for direct communication to VNAs. The package also allows straightforward plotting of rectangular plots (dB, mag, phase, group delay, etc), Smith Charts or automated uncertainty bounds. As the package is developed in Python, it makes it naturally compatible with the rich and modern scientific Python libraries \cite{Millman2011}, for example  \texttt{scikit-learn} for machine learning tasks \cite{scikit-learn} or \texttt{PlasmaPy} \cite{PlasmaPyCommunity2018} for plasma physics. Using Jupyter notebooks documents\cite{Kluyver2016}, modelling approaches and results can be shared and even directly reproduced using tools such as Binder\footnote{https://mybinder.org/}\cite{project-jupyter-proc-scipy-2018} or Google Colab\footnote{https://colab.research.google.com/}, by other researchers (or future self) few months or years after work had been made.
 	
-	In this paper, some functionalities of the \texttt{scikit-rf} package are presented through the example of modelling the WEST (Tungsten-W Environment in Steady-state Tokamak) Ion Cyclotron Resonance Heating (ICRH) antenna. The antenna circuit is made by connecting the various elements that compose it, separately full-wave modelled or using equivalent lumped models, like done with proprietary codes (i.e. owned by the person or the firm who has developed it)  in \cite{Durodie2015, Helou2015_SIDON} or with commercial software such as ANSYS Designer in \cite{Hillairet2015}. This paper is accompanied by Jupyter notebooks illustrating in more details the code leading to the results presented here\cite{Hillairet2019_zenodo}.
+	In this paper, some functionalities of the \texttt{scikit-rf} package are presented through the example of modelling the WEST (Tungsten-W Environment in Steady-state Tokamak) Ion Cyclotron Resonance Heating (ICRH) antenna. The antenna circuit is made by connecting the various elements that compose it, separately full-wave modelled or using equivalent lumped models, like done with proprietary codes (i.e. owned by the person or the firm who has developed it)  in \cite{Durodie2015, Helou2015SIDON} or with commercial software such as ANSYS Designer in \cite{Hillairet2015}. This paper is accompanied by Jupyter notebooks illustrating in more details the code leading to the results presented here\cite{Hillairet2019zenodo}.
 	
 	
 	\section{WEST Antenna Matching Capacitors}
-	The three WEST ICRH antennas are load tolerant resonant structures equipped with internal vacuum matching capacitors. These capacitors are tuned before the antenna operation or are real-time controlled to maintain low reflected power toward the RF sources \cite{Hillairet2015}. In order to forge a relevant numerical model of the antenna, it is thus needed to modify the capacitance of these matching capacitors. At least two approaches can be used: (i) using an equivalent lumped model of the capacitor or (ii) interpolating the capacitor s-parameters from full-wave simulations (if available). The challenge with the former is to use a relevant model to capture the RF behaviour of the capacitor in its operational environment, where parasitic capacitances/inductances may arise from surrounding elements and are mostly unknown. The main difficulty with the later is to design a full-wave parametrized model geometrically accurate, assuming dimensions and materials of the capacitor are known. Both approaches can be implemented with \texttt{scikit-rf} as the package is able to compute s-parameters of RF circuits made from ideal lumped elements (resistor/capacitor/inductor, in series/shunt configuration)  or to interpolate between N-port networks with same frequencies \footnote{Similar to the \texttt{NPort\_Multi} component in ANSYS Designer}. In the example below, both approaches are mixed: the capacitor (from COMET), which has been previously simulated with ANSYS HFSS for few different capacitance configurations in \cite{Helou2018_PhD}, is used to extract the lumped element parameters. Once fitted to an equivalent model, the capacitor networks can be driven as a function of their capacitances, while s-parameter interpolation only depend on of geometrical parameter (like the distance between capacitor electrodes).
+	The three WEST ICRH antennas are load tolerant resonant structures equipped with internal vacuum matching capacitors. These capacitors are tuned before the antenna operation or are real-time controlled to maintain low reflected power toward the RF sources \cite{Hillairet2015}. In order to forge a relevant numerical model of the antenna, it is thus needed to modify the capacitance of these matching capacitors. At least two approaches can be used: (i) using an equivalent lumped model of the capacitor or (ii) interpolating the capacitor s-parameters from full-wave simulations (if available). The challenge with the former is to use a relevant model to capture the RF behaviour of the capacitor in its operational environment, where parasitic capacitances/inductances may arise from surrounding elements and are mostly unknown. The main difficulty with the later is to design a full-wave parametrized model geometrically accurate, assuming dimensions and materials of the capacitor are known. Both approaches can be implemented with \texttt{scikit-rf} as the package is able to compute s-parameters of RF circuits made from ideal lumped elements (resistor/capacitor/inductor, in series/shunt configuration)  or to interpolate between N-port networks with same frequencies \footnote{Similar to the \texttt{NPort\_Multi} component in ANSYS Designer}. In the example below, both approaches are mixed: the capacitor (from COMET), which has been previously simulated with ANSYS HFSS for few different capacitance configurations in \cite{Helou2018PhD}, is used to extract the lumped element parameters. Once fitted to an equivalent model, the capacitor networks can be driven as a function of their capacitances, while s-parameter interpolation only depend on of geometrical parameter (like the distance between capacitor electrodes).
 	
 	A N-port electrical network is described in \texttt{scikit-rf} with the \texttt{Network} object, defined from its network parameters (s, z, y-parameters),
-	port characteristic impedances and frequency information. It can be created from a file or directly from data. Importing all the touchstone files located in directory into a collection of \texttt{Network} in a \texttt{NetworkSet} object and plotting the real part of the $S_{21}$ parameter for each network for a subset of the frequency range is straightforward (Figure~\ref{fig:fig1}(a))\footnote{Due to space constraints, the code snippets are complete minimal example but does not necessary reproduce all figure details such as line styles, markers or labels. Readers should refer to associated notebooks for the full code listing.}:
+	port characteristic impedances and frequency information. It can be created from a file or directly from data. Importing all the touchstone files located in directory into a collection of \texttt{Network} in a \texttt{NetworkSet} object and plotting the real part of the $S_{21}$ parameter for each network for a subset of the frequency range is straightforward\footnote{Due to space constraints, the code snippets are complete minimal example but does not necessary reproduce all figure details such as line styles, markers or labels. Readers should refer to associated notebooks for the full code listing.}:
 	
 	\begin{lstlisting}[language=Python]
 	import skrf as rf
@@ -116,36 +116,11 @@ reprint,%
 	\begin{lstlisting}[language=Python]
 	ntw = capas_set.interpolate_from_network(param_values, new_value)	\end{lstlisting}
 	
-	Figure~\ref{fig:fig1}(b) illustrates the interpolation of $S_{11}$ and $S_{21}$ at a given frequency for intermediate values of the swept parameter, here related to the distance between capacitor electrodes (noted $D_{cylinders}$). Obviously, the interpolation precision increases with the number of networks in the set.
-	
-	\begin{figure*}[t!]
-		\centering
-		\begin{subfigure}[t]{0.49\textwidth}
-			\centering
-			\includegraphics[width=.95\textwidth]{figures/capas_set_S21db}
-			\caption{Real part of the simulated matching capacitors $S_{21}$ parameter for various capacitance configurations.}
-		\end{subfigure}%
-		~
-		\begin{subfigure}[t]{0.49\textwidth}
-			\centering
-			\includegraphics[width=\linewidth]{figures/S11_S21_interpolated}
-			\caption{Interpolation (line) of s-parameters of the capacitor between full-wave reference results (markers).}
-		\end{subfigure}
-		\caption{Importing and interpolating WEST ICRH antenna capacitor s-parameters using \texttt{scikit-rf} \texttt{NetworkSet}.}
-		\label{fig:fig1}
-	\end{figure*}
-	
-	%\begin{figure}[h]
-	%    \centering
-	%    \includegraphics[width=0.49\linewidth]{figures/capas_set_S21db}
-	%    \includegraphics[width=0.49\linewidth]{figures/S11_S21_interpolated}
-	%    \caption{Left: Real part of the simulated matching capacitors $S_{21}$ parameter for various capacitance configurations (data from \cite{Helou2016}). Right: }
-	%    \label{fig:capassets21db}
-	%\end{figure}
+	Figure~1(b) illustrates the interpolation of $S_{11}$ and $S_{21}$ at a given frequency for intermediate values of the swept parameter, here related to the distance between capacitor electrodes (noted $D_{cylinders}$). Obviously, the interpolation precision increases with the number of networks in the set.
 	
 	The equivalent lumped model proposed by the capacitor manufacturer (COMET) in the capacitor documentation consists in a RLC circuit (in parallel with a resistance $R_p$). 
 	% with the capacitance $C$ tunable from 15 to 150 pF and the elements $L\leqslant 24$ nH and $R_p$ and $R_s$ in the order of 20 to 50 M$\Omega$ and 5-10 m$\Omega$ respectively.
-	However, in the case of the WEST ICRH antenna, the capacitor is inserted inside the antenna and is surrounded by the outer conductor elements, creating additional stray capacitances and inductances. In this situation, its turns out that the equivalent capacitance of the setup is modified \cite{Helou2018_PhD}. The RF capacitance can nevertheless be extracted from full-wave calculation using a refined equivalent lumped model with additional shunt capacitances and RL elements around the capacitor itself to model the proximity of the outer conductor housing and propagation effects\footnote{The parallel resistor $R_p$ can be neglected in the tens of MHz frequency range considered here.} (Figure \ref{fig:fig2}(a)). Such electrical network can be constructed with \texttt{scikit-rf} with the following function:
+	However, in the case of the WEST ICRH antenna, the capacitor is inserted inside the antenna and is surrounded by the outer conductor elements, creating additional stray capacitances and inductances. In this situation, its turns out that the equivalent capacitance of the setup is modified \cite{Helou2018PhD}. The RF capacitance can nevertheless be extracted from full-wave calculation using a refined equivalent lumped model with additional shunt capacitances and RL elements around the capacitor itself to model the proximity of the outer conductor housing and propagation effects\footnote{The parallel resistor $R_p$ can be neglected in the tens of MHz frequency range considered here.} (Figure \ref{fig:fig2}(a)). Such electrical network can be constructed with \texttt{scikit-rf} with the following function:
 	
 	\begin{lstlisting}[language=Python]
 	def eq_capa(C, R, L, R1, C1, L1):  # here we neglect the parallel resistance R_p
@@ -158,32 +133,22 @@ reprint,%
 	
 	Using the standard optimization toolbox shipped in the \texttt{scipy} package, the model parameters can be fitted for each full-wave network. Once done, full-wave references and lumped model can be compared. The Figure~\ref{fig:fig2}(b) shows the calculated $S_{21}$ parameter which fit nice with the reference full-wave values. For most capacitance configurations, the error is below -40~dB. Taking constant lumped parameters ($R_s, L_s, C_1=C_2, R_1=R_2, L_1=L_2$) but $C$, the still matches well the full-wave reference except for the lowest range of capacitance values, in a region where the relationship between the electrodes distance and the capacitance is no more linear. The model can thus be used to determine a realistic relationship between the RF capacitance and the capacitor configuration (driven by motors).
 	
-	\begin{figure*}[t!]
+	\begin{figure*}
 		\centering
 		\begin{subfigure}[t]{0.49\textwidth}
 			\centering
-			\includegraphics[width=.95\textwidth]{figures/capacitor_equivalent_circuit}
+			\includegraphics[width=.9\linewidth]{figures/capacitor_equivalent_circuit}
 			\caption{equivalent lumped models of a WEST antenna matching capacitor, outside and inside the antenna.}
 		\end{subfigure}%
 		~
 		\begin{subfigure}[t]{0.49\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/comparison_fullwave_lumped_S21}
+			\includegraphics[width=.9\linewidth]{figures/comparison_fullwave_lumped_S21}
 			\caption{Real part of $S_{21}$ between the reference from full-wave  calculations (thin lines) and the lumped model (thick lines).}
 		\end{subfigure}
 		\caption{Equivalent lumped model of the WEST ICRH antenna capacitor.}
 		\label{fig:fig2}
 	\end{figure*}
-	
-	%\begin{figure}[h]
-	%    \centering
-	%    \includegraphics[width=0.50\linewidth]{figures/capacitor_equivalent_circuit}
-	%    \includegraphics[width=0.45\linewidth]{figures/comparison_fullwave_lumped_S21}
-	%    \caption{Left: equivalent lumped models of a WEST antenna matching capacitor, outside and inside the antenna.
-	%    Right: Comparison of the real part of $S_{21}$ (Right) between the reference from full-wave calculations (thin lines) and the lumped model (thick lines). }
-	%    \label{fig:comparisonfullwavelumpeds}
-	%\end{figure}
-	
 	
 	\subsection{Antenna RF Circuit}
 	In \texttt{scikit-rf}, there is at least two ways of building a RF circuit made of various networks, both illustrated in the accompanying notebooks. The first method consists in connecting networks one by one using \texttt{Network} methods. A second method consists in defining all the connections between networks and ports at once time, then use the \texttt{Circuit} object to build the resultant network. While the later method can be more verbose than the former, it has some advantages when the circuit has many connections. \texttt{Circuit} uses a systematic solving method giving both internal (for each circuit connections) and external (for ports) s-parameters for an arbitrary number of networks and interconnections and independently of the circuit excitation \cite{Hallbjorner2003}. By imposing excitations at ports, it allows obtaining voltages/currents inside the circuit.
@@ -193,7 +158,7 @@ reprint,%
 	\begin{minipage}{\textwidth}
 		\begin{minipage}[b]{0.55\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/antenna_circuit}
+			\includegraphics[width=.9\linewidth]{figures/antenna_circuit}
 			
 			\captionof{figure}{Half Antenna schematic.}
 			\label{fig:antenna_circuit}
@@ -223,13 +188,13 @@ ntw = crt.network  # here a 1-port.			\end{lstlisting}
 	\begin{minipage}{\textwidth}
 		\begin{minipage}[b]{0.5\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/half_antenna_current_voltage}
+			\includegraphics[width=.9\linewidth]{figures/half_antenna_current_voltage}
 			\captionof{figure}{Voltages and currents at the matching capacitor for a defined power excitation, antenna loading and matching conditions.}
 			\label{fig:halfantennacurrentvoltage}
 		\end{minipage}
 		\begin{minipage}[b]{0.5\textwidth}
 			\centering
-			\includegraphics[width=\linewidth]{figures/antenna_graph}
+			\includegraphics[width=.9\linewidth]{figures/antenna_graph}
 			\captionof{figure}{Circuit graph of a complete antenna.}
 			\label{fig:antenna_graph}
 		\end{minipage}
@@ -241,7 +206,7 @@ ntw = crt.network  # here a 1-port.			\end{lstlisting}
 	
 	
 	\section{ACKNOWLEDGMENTS}
-	The author would like to thank Alex Arsenovic and the  scikit-rf developers\footnote{https://github.com/scikit-rf/scikit-rf/graphs/contributors} for the scikit-rf package and their support. The capacitor full-wave model used to interpolate and extract lumped parameters had been made by W.Helou \cite{Helou2018_PhD}.
+	The author would like to thank Alex Arsenovic and the  scikit-rf developers\footnote{https://github.com/scikit-rf/scikit-rf/graphs/contributors} for the scikit-rf package and their support. The capacitor full-wave model used to interpolate and extract lumped parameters had been made by W.Helou \cite{Helou2018PhD}.
 	
 	\bibliographystyle{aipnum-cp}%
 	\bibliography{RFPPC2019_Hillairet}%
